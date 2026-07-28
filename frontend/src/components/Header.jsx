@@ -23,12 +23,6 @@ export default function Header() {
             <p className="text-xs text-slate-400">Powered by OpenCLIP</p>
           </div>
         </div>
-
-        <div className="hidden md:flex items-center gap-3">
-          <span className="rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-2 text-sm text-violet-300">
-            AI Search
-          </span>
-        </div>
       </div>
     </motion.header>
   );
