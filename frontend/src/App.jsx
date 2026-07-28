@@ -23,32 +23,40 @@ export default function App() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/search",
-        formData
+        "http://localhost:8000/search",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
-      setResults(response.data.results);
+      console.log("API Response:", response.data);
 
+      // Backend now returns { query, matches }
+      setResults(response.data.matches || []);
     } catch (err) {
-      console.error(err);
-    }
+      console.error("Search Error:", err);
 
-    setLoading(false);
+      if (err.response) {
+        console.log(err.response.data);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-slate-950">
-
       <Header />
 
       <Hero />
 
       <div className="mx-auto max-w-7xl px-6 pb-20">
-
         <UploadArea onFileSelect={setSelectedFile} />
 
         <div className="mt-10 grid gap-8 lg:grid-cols-2">
-
           <div>
             <h2 className="mb-4 text-xl font-semibold text-white">
               Query Image
@@ -57,20 +65,17 @@ export default function App() {
             <QueryPreview file={selectedFile} />
           </div>
 
-          <div className="flex items-center">
+          <div className="flex items-center justify-center">
             <SearchButton
               loading={loading}
               disabled={!selectedFile}
               onClick={handleSearch}
             />
           </div>
-
         </div>
 
         <ResultsGrid results={results} />
-
       </div>
-
     </div>
   );
 }

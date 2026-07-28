@@ -6,8 +6,7 @@ import torch
 from PIL import Image
 from tqdm import tqdm
 
-from model import model, preprocess, device
-
+from .model import model, preprocess, device
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DATASET_FOLDER = os.path.join(BASE_DIR, "dataset")

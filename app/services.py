@@ -53,7 +53,7 @@ def search_similar_images(query_image_path, top_k=5):
 
         score = float(similarities[index])
 
-        # Skip the identical image
+        # Skip identical uploaded image
         if score > 0.995:
             continue
 
@@ -65,22 +65,4 @@ def search_similar_images(query_image_path, top_k=5):
         if len(results) == top_k:
             break
 
-    return results
-
-
-if __name__ == "__main__":
-
-    query_image = os.path.join(
-        BASE_DIR,
-        "dataset",
-        "image_0000.jpg"
-    )
-
-    results = search_similar_images(query_image)
-
-    print("\nTop Similar Images\n")
-
-    for result in results:
-        print(result["image"])
-        print("Similarity:", round(result["score"], 4))
-        print("-" * 40)
+    return results  
